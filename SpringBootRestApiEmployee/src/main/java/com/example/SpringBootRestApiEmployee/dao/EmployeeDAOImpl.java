@@ -26,7 +26,6 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	}
 	
 	@Override
-	@Transactional
 	public List<Employee> findAll() {
 		
 		//get current hibernate session
@@ -43,7 +42,6 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	}
 
 	@Override
-	@Transactional
 	public Employee getEmployee(int id) {
 		Session currentSession = entityManager.unwrap(Session.class);
 		
@@ -53,7 +51,6 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	}
 
 	@Override
-	@Transactional
 	public Employee saveEmployee(Employee employee) {
 		
 		Session currentSession = entityManager.unwrap(Session.class);
@@ -64,7 +61,6 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	}
 
 	@Override
-	@Transactional
 	public int deleteEmployee(int id) {
 		
 		Session currentSession = entityManager.unwrap(Session.class);

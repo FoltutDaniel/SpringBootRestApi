@@ -14,30 +14,28 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.SpringBootRestApiEmployee.dao.EmployeeDAO;
 import com.example.SpringBootRestApiEmployee.entity.*;
+import com.example.SpringBootRestApiEmployee.service.EmployeeService;
 
 
 @RestController
 @RequestMapping("/api")
 public class EmployeeRestController {
 	
-	private EmployeeDAO employeeDAO;
+	@Autowired
+	private EmployeeService employeeService;
 	
 	// quick and dirty: inject employee dao
 	
-	@Autowired
-	public EmployeeRestController(EmployeeDAO employeeDAO) {
-		this.employeeDAO = employeeDAO;
-	}
 	
 	//expose "/employee" endpoint
 	@GetMapping("/employees")
 	public List<Employee> findAll(){
-		return this.employeeDAO.findAll();
+		return this.employeeService.findAll();
 	}
 	
 	@GetMapping("/employees/{employeeId}")
 	public Employee getEmployee(@PathVariable int employeeId) {
-		return this.employeeDAO.getEmployee(employeeId);
+		return this.employeeService.getEmployee(employeeId);
 	}
 	
 	@PostMapping("/employees")
@@ -45,18 +43,18 @@ public class EmployeeRestController {
 		
 		employee.setId(0);
 		
-		return this.employeeDAO.saveEmployee(employee);
+		return this.employeeService.saveEmployee(employee);
 	}
 	
 	@PutMapping("/employees")
 	public Employee updateEmployee(@RequestBody Employee employee) {
 		
-		return this.employeeDAO.saveEmployee(employee);
+		return this.employeeService.saveEmployee(employee);
 	}
 	
 	@DeleteMapping("/employees/{employeeId}")
 	public String deletedEmployee(@PathVariable int employeeId) {
-		this.employeeDAO.deleteEmployee(employeeId);
+		this.employeeService.deleteEmployee(employeeId);
 		return "Employee with id "+employeeId+" was delete";
 	}
 }
